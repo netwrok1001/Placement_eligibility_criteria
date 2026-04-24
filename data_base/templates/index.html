@@ -14,7 +14,7 @@
           <label for="resume" class="form-label">Upload PDF resume</label>
           <input class="form-control" type="file" id="resume" name="resume" accept="application/pdf" required>
         </div>
-        <button type="submit" class="btn btn-primary">Predict</button>
+        <button type="submit" class="btn btn-primary  action="{{ url_for('predict') }}" ">Predict</button>
       </form>
       <hr>
       <p class="text-muted">This demo extracts simple features from text heuristically — results may vary.</p>
