@@ -27,7 +27,7 @@ if 'student_id' in df.columns:
 target = 'placed'
 exclude = [target, 'salary_package_lpa', 'placement_status']
 feature_cols = [c for c in df.columns if c not in exclude]
-
+                                                                                                                    
 # numeric / categorical
 numeric_cols = df[feature_cols].select_dtypes(include=[np.number]).columns.tolist()
 cat_cols = [c for c in feature_cols if c not in numeric_cols]
