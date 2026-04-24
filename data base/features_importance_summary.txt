@@ -1,0 +1,62 @@
+Feature importance summary
+==========================
+
+Total transformed features: 32
+
+Top 20 features by mean(|SHAP|):
+1. num__backlogs: mean_abs_shap=0.121688, mean_shap=0.000140, lgb_imp=509 -> increasing
+2. num__internships_count: mean_abs_shap=0.080745, mean_shap=-0.000059, lgb_imp=961 -> decreasing
+3. num__projects_count: mean_abs_shap=0.080706, mean_shap=0.000065, lgb_imp=995 -> increasing
+4. num__coding_skill_score: mean_abs_shap=0.074683, mean_shap=-0.000037, lgb_imp=1278 -> decreasing
+5. num__mock_interview_score: mean_abs_shap=0.063721, mean_shap=-0.000058, lgb_imp=1342 -> decreasing
+6. num__logical_reasoning_score: mean_abs_shap=0.048538, mean_shap=-0.000074, lgb_imp=1343 -> decreasing
+7. num__aptitude_score: mean_abs_shap=0.045125, mean_shap=-0.000058, lgb_imp=1156 -> decreasing
+8. num__communication_skill_score: mean_abs_shap=0.044895, mean_shap=-0.000025, lgb_imp=1083 -> decreasing
+9. num__leadership_score: mean_abs_shap=0.028362, mean_shap=0.000044, lgb_imp=1051 -> increasing
+10. num__extracurricular_score: mean_abs_shap=0.020925, mean_shap=0.000010, lgb_imp=986 -> increasing
+11. num__cgpa: mean_abs_shap=0.009766, mean_shap=-0.000002, lgb_imp=833 -> decreasing
+12. num__attendance_percentage: mean_abs_shap=0.008329, mean_shap=0.000021, lgb_imp=659 -> increasing
+13. num__github_repos: mean_abs_shap=0.004367, mean_shap=0.000015, lgb_imp=249 -> increasing
+14. num__linkedin_connections: mean_abs_shap=0.003982, mean_shap=0.000024, lgb_imp=677 -> increasing
+15. num__sleep_hours: mean_abs_shap=0.003862, mean_shap=0.000004, lgb_imp=568 -> increasing
+16. num__study_hours_per_day: mean_abs_shap=0.003580, mean_shap=0.000003, lgb_imp=579 -> increasing
+17. num__certifications_count: mean_abs_shap=0.001763, mean_shap=-0.000002, lgb_imp=161 -> decreasing
+18. cat__college_tier_Tier 3: mean_abs_shap=0.001595, mean_shap=0.000002, lgb_imp=51 -> increasing
+19. num__age: mean_abs_shap=0.000921, mean_shap=0.000003, lgb_imp=130 -> increasing
+20. cat__college_tier_Tier 2: mean_abs_shap=0.000835, mean_shap=-0.000007, lgb_imp=21 -> decreasing
+
+Features increasing model prediction for Placed (mean_shap>0):
+- num__backlogs
+- num__projects_count
+- num__leadership_score
+- num__extracurricular_score
+- num__attendance_percentage
+- num__github_repos
+- num__linkedin_connections
+- num__sleep_hours
+- num__study_hours_per_day
+- cat__college_tier_Tier 3
+- num__age
+- cat__gender_Female
+- cat__branch_ECE
+- cat__branch_Mechanical
+- cat__branch_EEE
+- cat__gender_Male
+
+Features decreasing model prediction for Placed (mean_shap<0):
+- num__internships_count
+- num__coding_skill_score
+- num__mock_interview_score
+- num__logical_reasoning_score
+- num__aptitude_score
+- num__communication_skill_score
+- num__cgpa
+- num__certifications_count
+- cat__college_tier_Tier 2
+- cat__volunteer_experience_No
+- num__hackathons_participated
+- cat__branch_IT
+- cat__branch_Civil
+- cat__branch_CSE
+- cat__volunteer_experience_Yes
+- cat__college_tier_Tier 1

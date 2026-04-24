@@ -1,0 +1,30 @@
+Research Lead:
+
+Role Summary: Oversees project direction, defines research questions, ensures methodological rigor, and coordinates team deliverables.
+Key Responsibilities: set objectives, design experiments, choose evaluation metrics, ensure data/ethical compliance, synthesize findings into recommendations.
+Deliverables: project plan, experiment design doc, evaluation criteria, final research report and recommendations.
+Cross-Questions: What is the primary research question and success metric? How will you validate model generality and guard against data leakage? What assumptions are we making and how will you test them? How do you prioritize trade-offs (accuracy vs explainability vs deployability)?
+Data Handler:
+
+Role Summary: Acquire, clean, transform, and document datasets; build reproducible data pipelines.
+Key Responsibilities: data ingestion, cleaning/missing-value strategy, feature engineering logs, versioning/sampling, privacy/anonymization steps.
+Deliverables: cleaned dataset, preprocessing scripts/Notebook, data dictionary, sample-splitting reproducible pipeline.
+Cross-Questions: How do you handle missing or inconsistent entries for key features (e.g., CGPA)? What preprocessing steps are irreversible and how do you document them? How would you detect and fix label leakage? How will you version datasets and keep experiments reproducible?
+Programmer:
+
+Role Summary: Implement model training, evaluation code, saveable pipelines, and the inference API/web app.
+Key Responsibilities: write modular, tested code; implement pipeline (preprocess→train→save); integrate model with Flask app; automate tests and CI-ready scripts.
+Deliverables: training scripts, packaged pipeline (joblib), API/app code, basic unit tests and README for run instructions.
+Cross-Questions: How do you structure the pipeline so preprocessing matches training and inference? How do you test that deployments use the same feature ordering/types as training? How will you handle model upgrades and backward compatibility for saved artifacts?
+Analyst:
+
+Role Summary: Evaluate model performance, run error analysis, produce explainability outputs (SHAP), and provide actionable insights.
+Key Responsibilities: compute metrics, run cross-validation, analyze failure cases, produce feature importance and cohort analysis, recommend improvements.
+Deliverables: evaluation report, confusion matrices, SHAP summaries/plots, targeted error-analysis notes (why failures occur).
+Cross-Questions: Which metrics matter most for stakeholders and why (recall, precision, AUC, Gini)? What patterns appear in false positives/negatives? Which features most influence decisions and are they reliable? What experiments would you run next to improve weak areas?
+Presenter:
+
+Role Summary: Turn technical results into a clear, persuasive narrative for stakeholders (slides, demo, handouts).
+Key Responsibilities: craft slide deck with key findings, prepare demo runs, produce executive summary, highlight limitations and next steps.
+Deliverables: slide deck, live demo script, one-page executive summary, appendix with reproducibility instructions.
+Cross-Questions: Who is the target audience and what decisions should the presentation enable? What are the two most important insights to communicate? How will you demonstrate model reliability and known limitations in a 5-minute demo? What supporting materials will you leave for technical reviewers?

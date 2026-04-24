@@ -1,0 +1,66 @@
+Project Report — Student Placement Prediction
+
+Summary
+
+Project: Predict student placement from resume and profile features using an ML pipeline and a demo Flask UI.
+Goals: Build a reproducible preprocessing→training pipeline, tune a LightGBM classifier, explain decisions (SHAP), and provide a demo web app to upload resumes and get predictions with highlighted evidence.
+Data
+
+Source: data base/student_placement_prediction_dataset_2026.csv — cleaned and used for training and evaluation.
+Key features: CGPA, backlogs, internships_count, projects_count, coding_skill_score, mock_interview_score, attendance, branch, college_tier, LinkedIn/GitHub flags, and engineered scores from resume text.s
+Modeling
+
+Model chosen: LightGBM classifier inside an sklearn Pipeline (preprocessing with median imputation + scaling for numeric, most-frequent impute + one-hot for categorical).
+Why: Good performance on tabular data, fast training, and compatible with SHAP for explainability.
+Tuned hyperparams: e.g., n_estimators=500, learning_rate=0.01, num_leaves=31, subsample=0.8, colsample_bytree=0.6, regularization applied.
+Evaluation
+
+Validation: StratifiedKFold CV (5 folds) and an 80/20 holdout test.
+Sample metrics (holdout): Accuracy ≈ 0.5945, Precision ≈ 0.5916, Recall ≈ 0.8248, F1 ≈ 0.6890, ROC AUC ≈ 0.6273, Gini ≈ 0.2545.
+Error analysis: Model favors recall (fewer false negatives) at cost of precision; confusion matrix indicates notable false positives/negatives requiring targeted analysis.
+Explainability
+
+Method: SHAP TreeExplainer on the LightGBM model.
+Top influences: backlogs, internships_count, projects_count, coding_skill_score, mock_interview_score.
+Outputs saved: data base/features_importance.csv and data base/features_importance_summary.txt.
+Deployment / Demo
+
+Web app: Flask app accepts PDF resumes, extracts heuristic features, then predicts and shows matched snippets.
+App file: resume_app.py
+Templates: index.html, result.html
+Model artifact: tuned pipeline saved as placement_pipeline_tuned.joblib
+How to run locally:
+Activate venv, then:
+& "d:\Study\College-projects\S-2\R-programming\data base\.venv\Scripts\python.exe" "data base/resume_app.py"
+Open: http://127.0.0.1:5000/
+Key Files
+
+data base/placement_train.py: training + baseline CV
+data base/placement_tune.py: RandomizedSearchCV tuning
+data base/placement_feature_importance.py: SHAP generation
+data base/placement_pipeline_tuned.joblib: trained pipeline artifact
+data base/resume_app.py: Flask inference app
+data base/features_importance.csv, features_importance_summary.txt: SHAP outputs
+Decisions & Rationale
+
+LightGBM selected for tabular performance and SHAP support.
+Resume parsing implemented with lightweight heuristics (regex + keyword counts) for a quick demo; chosen for speed and simplicity.
+Minimum eligibility rule: CGPA threshold enforced (6.0) at inference in the app to reflect business requirement.
+Limitations
+
+Resume parsing is heuristic — may miss or mis-extract values (CGPA, internship counts, etc.).
+Model trained on engineered features; distributional shift in real resumes may degrade performance.
+No production hardening (no Docker, WSGI server, auth, or input sanitization for untrusted uploads).
+Evaluation shows modest AUC and notable class errors — further feature engineering and data quality work needed.
+Recommended Next Steps
+
+Improve resume extraction (use a lightweight NLP model or structured form + user confirmation).
+Add a review/edit step in the UI so users can correct parsed fields before prediction.
+Retrain/validate model after engineered-feature improvements; add calibration if probabilities used for decisions.
+Add per-sample SHAP visualizations to the UI to increase transparency for presenters and stakeholders.
+Containerize and deploy behind a WSGI server (Gunicorn/Waitress) and add basic rate limiting + virus-check for uploads.
+Quick Actions I Can Do Now
+
+Add a “review parsed fields” page before prediction.
+Replace heuristic parsing with a small NLP extractor (examples needed).
+Generate SHAP plots for a selected resume and add to result.html.
