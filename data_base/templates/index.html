@@ -9,7 +9,7 @@
   <body class="bg-light">
     <div class="container py-5">
       <h1 class="mb-4">Resume Placement Predictor</h1>
-      <form method="post" action="{{ url_for('predict') }}" enctype="multipart/form-data">
+      <form method="post" action="/predict" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="resume" class="form-label">Upload PDF resume</label>
           <input class="form-control" type="file" id="resume" name="resume" accept="application/pdf" required>

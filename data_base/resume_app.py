@@ -27,8 +27,8 @@ def extract_features_from_text(text):
     highlights = {}
     # age
     m = re.search(r'(?:age[:\s]|\bage\s)(\d{2})', t)
-    feat['age'] = int(m.group(1)) if m else 22
-    highlights['age'] = m.group(0) if m else ''
+    feat['age'] = int(m.group(1)) if m else None
+    highlights['age'] = m.group(0) if m else 'Not mentioned'
     # gender
     if 'female' in t and 'male' not in t:
         feat['gender'] = 'Female'
@@ -37,16 +37,16 @@ def extract_features_from_text(text):
         feat['gender'] = 'Male'
         highlights['gender'] = 'male'
     else:
-        feat['gender'] = 'Male'
+        feat['gender'] = 'not mentioned '
         highlights['gender'] = ''
     # cgpa / gpa
     m = re.search(r'(?:cgpa|gpa)[:\s]*([0-9]\.?[0-9]{1,2})', t)
-    feat['cgpa'] = float(m.group(1)) if m else 7.5
+    feat['cgpa'] = float(m.group(1)) if m else 6
     highlights['cgpa'] = m.group(0) if m else ''
     # branch (look for common branches)
     branches = ['cse','it','ece','eee','civil','mechanical']
     found_branch = next((b for b in branches if b in t), None)
-    feat['branch'] = found_branch.upper() if found_branch else 'CSE'
+    feat['branch'] = found_branch.upper() if found_branch else 'Not mentioned '
     highlights['branch'] = found_branch if found_branch else ''
     # college_tier (fallback Tier 2)
     if 'tier 1' in t:
@@ -56,7 +56,7 @@ def extract_features_from_text(text):
         feat['college_tier'] = 'Tier 3'
         highlights['college_tier'] = 'tier 3'
     else:
-        feat['college_tier'] = 'Tier 2'
+        feat['college_tier'] = 'Not-mentioned'
         highlights['college_tier'] = ''
     # internships/projects/certifications via keyword counts
     interns = t.count('intern')
@@ -103,7 +103,7 @@ def extract_features_from_text(text):
     m_back = re.search(r'backlog[s]?[:\s]?(\d+)', t)
     feat['backlogs'] = int(m_back.group(1)) if m_back else 0
     highlights['backlogs'] = m_back.group(0) if m_back else ''
-    # extracurricular & leadership & volunteer
+    #extracurricular & leadership & volunteer
     ex = min(100, t.count('extra')*20 + t.count('club')*10)
     feat['extracurricular_score'] = ex
     highlights['extracurricular_score'] = 'extra/club' if ex else ''
