@@ -164,5 +164,32 @@ def predict():
         prob = None
     return render_template('result.html', prediction=('Eligible for P lacement ' if pred==1 else 'Not Eligible for Placement'), probability=prob, features=feats, highlights=highlights)
 
-if __name__ == '__main__':
+@app.route('/manual', methods=['GET'])
+def manual():
+    return render_template('manual_form.html')
+
+@app.route('/manual_predict', methods=['POST'])
+def manual_predict():
+    feats = {}
+    for feature in FEATURES:
+        if feature in ['gender', 'branch', 'college_tier', 'volunteer_experience']:
+            feats[feature] = request.form.get(feature)
+        else:
+            try:
+                feats[feature] = float(request.form.get(feature, 0))
+            except ValueError:
+                feats[feature] = 0
+    X = pd.DataFrame([feats])
+    # enforce minimum CGPA criteria before prediction
+    cgpa_val = feats.get('cgpa', 0)
+    if cgpa_val < 6.0:
+        return render_template('result.html', prediction='Not Eligible (CGPA < 6.0)', probability=None, features=feats, highlights={})
+
+    pred = pipe.predict(X)[0]
+    try:
+        prob = pipe.predict_proba(X)[0][1]
+    except Exception:
+        prob = None
+    return render_template('result.html', prediction=('Eligible for Placement' if pred==1 else 'Not Eligible for Placement'), probability=prob, features=feats, highlights={})
+if __name__=='__main__':
     app.run(debug=True)

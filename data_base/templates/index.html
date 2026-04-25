@@ -9,6 +9,11 @@
   <body class="bg-light">
     <div class="container py-5">
       <h1 class="mb-4">Resume Placement Predictor</h1>
+      <p>Choose an option:</p>
+      <ul>
+        <li><a href="/manual">Enter details manually</a></li>
+        <li>Or upload a PDF resume below:</li>
+      </ul>
       <form method="post" action="/predict" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="resume" class="form-label">Upload PDF resume</label>
